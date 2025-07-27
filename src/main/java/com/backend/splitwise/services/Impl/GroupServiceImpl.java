@@ -26,7 +26,6 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDTO createGroup(Group group) {
         Group newGroup = groupRepository.save(group);
-
         return modelMapper.map(newGroup, GroupDTO.class);
     }
 
@@ -47,8 +46,25 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public void leaveFromGroup(Long groupId, AddMemberDTO addMemberDTO) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new ResourceNotFoundException("Group Not Found With Id : "+groupId));
+        User user = userRepository.findById(addMemberDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Found With Id : "+addMemberDTO.getUserId()));
+
+        if(group.getMembers().contains(user)) {
+            group.getMembers().remove(user);
+            groupRepository.save(group);
+        }
+        else {
+            throw new IllegalStateException("User is not present in the group");
+        }
+    }
+
+    @Override
     public GroupDTO getGroupById(Long id) {
-        Group group = groupRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Group Not Found with Id : "+id));
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Group Not Found with Id : "+id));
         return modelMapper.map(group, GroupDTO.class);
     }
 

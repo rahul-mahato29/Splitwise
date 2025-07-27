@@ -12,6 +12,8 @@ public interface GroupService {
 
     void addMemberToGroup(Long groupId, AddMemberDTO addMemberDTO);
 
+    void leaveFromGroup(Long groupId, AddMemberDTO addMemberDTO);
+
     GroupDTO getGroupById(Long id);
 
     List<GroupDTO> getAllGroup();

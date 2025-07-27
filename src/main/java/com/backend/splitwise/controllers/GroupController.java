@@ -23,10 +23,16 @@ public class GroupController {
         return ResponseEntity.ok(newGroup);
     }
 
-    @PostMapping(path = "/{groupId}/member")
+    @PostMapping(path = "/{groupId}/member/add")
     public ResponseEntity<String> addMemberToGroup(@PathVariable Long groupId, @RequestBody AddMemberDTO addMemberDTO) {
         groupService.addMemberToGroup(groupId, addMemberDTO);
         return ResponseEntity.ok("User added to group");
+    }
+
+    @PostMapping(path = "/{groupId}/member/leave")
+    public ResponseEntity<String> leaveFromGroup(@PathVariable Long groupId, @RequestBody AddMemberDTO addMemberDTO) {
+        groupService.leaveFromGroup(groupId, addMemberDTO);
+        return ResponseEntity.ok("User leaved the group");
     }
 
     @GetMapping(path = "/{groupId}")
