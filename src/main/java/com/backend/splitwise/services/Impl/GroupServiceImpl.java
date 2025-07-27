@@ -1,10 +1,12 @@
 package com.backend.splitwise.services.Impl;
 
+import com.backend.splitwise.dto.AddMemberDTO;
 import com.backend.splitwise.dto.GroupDTO;
 import com.backend.splitwise.entities.Group;
 import com.backend.splitwise.entities.User;
 import com.backend.splitwise.exceptions.ResourceNotFoundException;
 import com.backend.splitwise.repositories.GroupRepository;
+import com.backend.splitwise.repositories.UserRepository;
 import com.backend.splitwise.services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -28,8 +31,19 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupDTO addMemberToGroup(Long groupId, User user) {
-        return null;
+    public void addMemberToGroup(Long groupId, AddMemberDTO addMemberDTO) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new ResourceNotFoundException("Group Not Found with Id : "+groupId));
+        User user = userRepository.findById(addMemberDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User Not Found with Id : "+addMemberDTO.getUserId()));
+
+        if(!group.getMembers().contains(user)) {
+            group.getMembers().add(user);
+            groupRepository.save(group);
+        }
+        else {
+            throw new IllegalStateException("User is already a member of the group");
+        }
     }
 
     @Override

@@ -1,12 +1,11 @@
 package com.backend.splitwise.controllers;
 
+import com.backend.splitwise.dto.AddMemberDTO;
 import com.backend.splitwise.dto.GroupDTO;
 import com.backend.splitwise.entities.Group;
-import com.backend.splitwise.entities.User;
 import com.backend.splitwise.services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +24,9 @@ public class GroupController {
     }
 
     @PostMapping(path = "/{groupId}/member")
-    public ResponseEntity<GroupDTO> addMemberToGroup(@PathVariable Long groupId, @RequestBody User user) {
-        GroupDTO member = groupService.addMemberToGroup(groupId, user);
-        return ResponseEntity.ok(member);
+    public ResponseEntity<String> addMemberToGroup(@PathVariable Long groupId, @RequestBody AddMemberDTO addMemberDTO) {
+        groupService.addMemberToGroup(groupId, addMemberDTO);
+        return ResponseEntity.ok("User added to group");
     }
 
     @GetMapping(path = "/{groupId}")
