@@ -1,11 +1,17 @@
 package com.backend.splitwise.services;
 
-import com.backend.splitwise.dto.GroupDto;
+import com.backend.splitwise.dto.GroupDTO;
 import com.backend.splitwise.entities.Group;
 import com.backend.splitwise.entities.User;
 
-public interface GroupService {
-    GroupDto createGroup(Group group);
+import java.util.List;
 
-    GroupDto addMemberToGroup(Long groupId, User user);
+public interface GroupService {
+    GroupDTO createGroup(Group group);
+
+    GroupDTO addMemberToGroup(Long groupId, User user);
+
+    GroupDTO getGroupById(Long id);
+
+    List<GroupDTO> getAllGroup();
 }
