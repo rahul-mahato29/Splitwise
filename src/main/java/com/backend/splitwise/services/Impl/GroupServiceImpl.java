@@ -11,8 +11,11 @@ import com.backend.splitwise.services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,5 +78,22 @@ public class GroupServiceImpl implements GroupService {
                 .stream()
                 .map(group -> modelMapper.map(group, GroupDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public GroupDTO updateGroupDetailsById(Long id, Map<String, Object> updates) {
+        Group group = groupRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Group Not Found with Id : "+id));
+        //reflection-concept : for PATCH
+        updates.forEach((field, value) -> {
+            Field fieldToBeUpdated = ReflectionUtils.findField(Group.class, field);
+            if (fieldToBeUpdated == null) {
+                throw new IllegalArgumentException("Field '" + field + "' not found in Group entity");
+            }
+            fieldToBeUpdated.setAccessible(true);
+            ReflectionUtils.setField(fieldToBeUpdated, group , value);
+        });
+
+        return modelMapper.map(groupRepository.save(group), GroupDTO.class);
     }
 }

@@ -6,6 +6,7 @@ import com.backend.splitwise.entities.Group;
 import com.backend.splitwise.entities.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GroupService {
     GroupDTO createGroup(Group group);
@@ -17,4 +18,6 @@ public interface GroupService {
     GroupDTO getGroupById(Long id);
 
     List<GroupDTO> getAllGroup();
+
+    GroupDTO updateGroupDetailsById(Long id, Map<String, Object> updates);
 }

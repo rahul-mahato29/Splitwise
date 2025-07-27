@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/groups")
@@ -45,5 +46,12 @@ public class GroupController {
     public ResponseEntity<List<GroupDTO>> getAllGroup() {
         List<GroupDTO> allGroup = groupService.getAllGroup();
         return ResponseEntity.ok(allGroup);
+    }
+
+    @PatchMapping(path = "/{groupId}")
+    public ResponseEntity<GroupDTO> updateGroupDetailsById(@PathVariable(name = "groupId") Long id,
+                                                       @RequestBody Map<String, Object> updates) {
+        GroupDTO group = groupService.updateGroupDetailsById(id, updates);
+        return ResponseEntity.ok(group);
     }
 }
