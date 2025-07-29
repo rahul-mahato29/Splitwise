@@ -1,6 +1,7 @@
 package com.backend.splitwise.entities.Enum;
 
-public enum SplitTypes {
-    EQUAL
-    
+public enum SplitType {
+    EQUAL,
+    EXACT,
+    PERCENTAGE
 }

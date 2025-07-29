@@ -31,6 +31,9 @@ public class Group {
     )
     List<User> members;
 
+    @OneToMany
+    List<Expense> expensesList;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
