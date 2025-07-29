@@ -1,9 +1,7 @@
-package com.backend.splitwise.services.Impl;
+package com.backend.splitwise.services.impl;
 
-import com.backend.splitwise.dto.GroupDTO;
 import com.backend.splitwise.dto.SignUpDTO;
 import com.backend.splitwise.dto.UserDTO;
-import com.backend.splitwise.entities.Group;
 import com.backend.splitwise.entities.User;
 import com.backend.splitwise.exceptions.ResourceNotFoundException;
 import com.backend.splitwise.repositories.UserRepository;

@@ -1,4 +1,4 @@
-package com.backend.splitwise.services.Impl;
+package com.backend.splitwise.services.impl;
 
 import com.backend.splitwise.dto.AddMemberDTO;
 import com.backend.splitwise.dto.GroupDTO;
@@ -27,8 +27,9 @@ public class GroupServiceImpl implements GroupService {
     private final ModelMapper modelMapper;
 
     @Override
-    public GroupDTO createGroup(Group group) {
-        Group newGroup = groupRepository.save(group);
+    public GroupDTO createGroup(GroupDTO group) {
+        Group newGroup = modelMapper.map(group, Group.class);
+        newGroup = groupRepository.save(newGroup);
         return modelMapper.map(newGroup, GroupDTO.class);
     }
 
