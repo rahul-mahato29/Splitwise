@@ -1,5 +1,9 @@
-package com.backend.splitwise.services.Split;
+package com.backend.splitwise.services.split;
 
-public interface Split {
-    void calculate();
+import com.backend.splitwise.entities.Split;
+
+import java.util.List;
+
+public interface SplitStrategy {
+    void calculateSplit(List<Split> splitDetails, double amount);
 }

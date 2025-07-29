@@ -1,11 +1,14 @@
-package com.backend.splitwise.services.Split;
+package com.backend.splitwise.services.split;
 
+import com.backend.splitwise.entities.Split;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("PERCENTAGE")
-public class PercentageSplit implements Split {
+public class PercentageSplit implements SplitStrategy {
     @Override
-    public void calculate() {
+    public void calculateSplit(List<Split> splitDetails, double amount) {
 
     }
 }
