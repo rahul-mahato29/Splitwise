@@ -19,7 +19,7 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping
-    public ResponseEntity<GroupDTO> createGroup(@RequestBody Group group) {
+    public ResponseEntity<GroupDTO> createGroup(@RequestBody GroupDTO group) {
         GroupDTO newGroup = groupService.createGroup(group);
         return ResponseEntity.ok(newGroup);
     }
